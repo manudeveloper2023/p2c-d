@@ -1,0 +1,49 @@
+<main class="form-container">
+  <form [formGroup]="formGroup" class="store-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Codigo</mat-label>
+      <input
+        type="text"
+        matInput
+        [formControl]="formGroup.controls.code"
+        [errorStateMatcher]="matcher"
+        placeholder="AAA-9999"
+      />
+
+      @if(formGroup.controls.code.hasError('required')) {
+      <mat-error>El codigo es requerido</mat-error>
+      } @if(formGroup.controls.code.hasError('pattern')) {
+      <mat-error>El codigo debe tener el formato AAA-0000</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Direccion</mat-label>
+      <input
+        type="text"
+        matInput
+        [formControl]="formGroup.controls.address"
+        [errorStateMatcher]="matcher"
+        placeholder="Calle Falsa 123"
+      />
+
+      @if(formGroup.controls.address.hasError('required')) {
+      <mat-error>La direccion es requerida</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Choose a date</mat-label>
+      <input [formControl]="formGroup.controls.openingDate" matInput [matDatepicker]="picker" />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      @if (formGroup.controls.openingDate.hasError('required')) {
+      <mat-error>La fecha de apertura es requerida</mat-error>
+      }
+    </mat-form-field>
+
+    <button matButton="filled" (click)="onSubmit()" [disabled]="formGroup.invalid">
+      Crear Tienda
+    </button>
+  </form>
+</main>
